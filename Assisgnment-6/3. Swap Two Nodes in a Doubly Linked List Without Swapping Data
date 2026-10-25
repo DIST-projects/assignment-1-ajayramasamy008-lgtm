@@ -1,0 +1,84 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *prev, *next;
+};
+
+struct Node *head = NULL;
+
+void insert(int x) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = x;
+    n->prev = n->next = NULL;
+
+    if (head == NULL) {
+        head = n;
+        return;
+    }
+
+    struct Node *t = head;
+    while (t->next != NULL)
+        t = t->next;
+
+    t->next = n;
+    n->prev = t;
+}
+
+void display() {
+    struct Node *t = head;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+void swapNodes(struct Node *a, struct Node *b) {
+    if (a == b || a == NULL || b == NULL)
+        return;
+
+    struct Node *p = a->prev, *n = a->next;
+    struct Node *q = b->prev, *m = b->next;
+
+    if (n == b) {
+        if (p) p->next = b;
+        else head = b;
+        if (m) m->prev = a;
+
+        b->prev = p;
+        b->next = a;
+        a->prev = b;
+        a->next = m;
+    }
+    else if (m == a) {
+        swapNodes(b, a);
+    }
+    else {
+        if (p) p->next = b;
+        else head = b;
+        if (n) n->prev = b;
+
+        if (q) q->next = a;
+        else head = a;
+        if (m) m->prev = a;
+
+        a->prev = q;
+        a->next = m;
+        b->prev = p;
+        b->next = n;
+    }
+}
+
+int main() {
+    insert(10);
+    insert(20);
+    insert(30);
+    insert(40);
+
+    swapNodes(head, head->next->next);
+    display();
+    return 0;
+}
