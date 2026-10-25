@@ -1,0 +1,35 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+struct Node *create(int x) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = x;
+    n->left = n->right = NULL;
+    return n;
+}
+
+int height(struct Node *root) {
+    if (root == NULL)
+        return 0;
+
+    int l = height(root->left);
+    int r = height(root->right);
+
+    return 1 + (l > r ? l : r);
+}
+
+int main() {
+    struct Node *root = create(10);
+    root->left = create(20);
+    root->right = create(30);
+    root->left->left = create(40);
+
+    printf("Height = %d", height(root));
+    return 0;
+}
