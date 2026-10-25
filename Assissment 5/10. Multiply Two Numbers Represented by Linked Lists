@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+long long value(struct Node *p){
+    long long n=0;
+    while(p){
+        n=n*10+p->data;
+        p=p->next;
+    }
+    return n;
+}
+
+struct Node* create(long long n){
+    struct Node *h=NULL,*x;
+
+    if(n==0){
+        x=malloc(sizeof(*x));
+        x->data=0;
+        x->next=NULL;
+        return x;
+    }
+
+    while(n){
+        x=malloc(sizeof(*x));
+        x->data=n%10;
+        x->next=h;
+        h=x;
+        n/=10;
+    }
+
+    return h;
+}
+
+int main(){
+    struct Node *a=NULL,*b=NULL,*r;
+    long long x,y;
+
+    x=value(a);
+    y=value(b);
+
+    r=create(x*y);
+
+    while(r){
+        printf("%d ",r->data);
+        r=r->next;
+    }
+}
