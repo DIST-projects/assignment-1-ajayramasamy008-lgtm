@@ -1,0 +1,42 @@
+
+#include <stdio.h>
+
+int main() {
+    int a[] = {1, 2, 4, 6};
+    int b[] = {2, 3, 4, 5};
+    int i = 0, j = 0;
+
+    printf("Union: ");
+    while (i < 4 || j < 4) {
+        int x;
+
+        if (j == 4 || (i < 4 && a[i] < b[j]))
+            x = a[i++];
+        else if (i == 4 || b[j] < a[i])
+            x = b[j++];
+        else {
+            x = a[i];
+            i++;
+            j++;
+        }
+
+        printf("%d ", x);
+    }
+
+    i = j = 0;
+    printf("\nIntersection: ");
+
+    while (i < 4 && j < 4) {
+        if (a[i] < b[j])
+            i++;
+        else if (a[i] > b[j])
+            j++;
+        else {
+            printf("%d ", a[i]);
+            i++;
+            j++;
+        }
+    }
+
+    return 0;
+}
