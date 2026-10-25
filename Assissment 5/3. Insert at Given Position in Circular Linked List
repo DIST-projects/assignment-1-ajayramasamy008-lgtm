@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+int main(){
+    struct Node *h=NULL,*t=NULL,*x,*p;
+    int n,i,pos,v;
+
+    scanf("%d",&n);
+
+    for(i=0;i<n;i++){
+        x=malloc(sizeof(*x));
+        scanf("%d",&x->data);
+        if(!h)h=t=x;
+        else t=t->next=x;
+    }
+
+    t->next=h;
+
+    scanf("%d%d",&pos,&v);
+
+    x=malloc(sizeof(*x));
+    x->data=v;
+
+    if(pos==1){
+        x->next=h;
+        t->next=x;
+        h=x;
+    }else{
+        p=h;
+        for(i=1;i<pos-1;i++)p=p->next;
+        x->next=p->next;
+        p->next=x;
+    }
+
+    p=h;
+    do{
+        printf("%d ",p->data);
+        p=p->next;
+    }while(p!=h);
+}
