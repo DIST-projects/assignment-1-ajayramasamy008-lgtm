@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next,*bottom;
+};
+
+struct Node* merge(struct Node *a,struct Node *b){
+    if(!a)return b;
+    if(!b)return a;
+
+    if(a->data<b->data){
+        a->bottom=merge(a->bottom,b);
+        return a;
+    }else{
+        b->bottom=merge(a,b->bottom);
+        return b;
+    }
+}
+
+struct Node* flatten(struct Node *h){
+    if(!h||!h->next)return h;
+
+    h->next=flatten(h->next);
+    h=merge(h,h->next);
+
+    return h;
+}
+
+int main(){
+    return 0;
+}
