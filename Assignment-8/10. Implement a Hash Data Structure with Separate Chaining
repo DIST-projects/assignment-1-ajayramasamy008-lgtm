@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 10
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node *h[SIZE];
+
+void insert(int x) {
+    int i = x % SIZE;
+
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = x;
+    n->next = h[i];
+    h[i] = n;
+}
+
+void search(int x) {
+    int i = x % SIZE;
+    struct Node *t = h[i];
+
+    while (t) {
+        if (t->data == x) {
+            printf("Found\n");
+            return;
+        }
+        t = t->next;
+    }
+
+    printf("Not found\n");
+}
+
+void deleteKey(int x) {
+    int i = x % SIZE;
+    struct Node *t = h[i], *p = NULL;
+
+    while (t) {
+        if (t->data == x) {
+            if (p)
+                p->next = t->next;
+            else
+                h[i] = t->next;
+
+            free(t);
+            printf("Deleted\n");
+            return;
+        }
+
+        p = t;
+        t = t->next;
+    }
+
+    printf("Not found\n");
+}
+
+int main() {
+    insert(25);
+    insert(15);
+    insert(35);
+
+    search(15);
+    deleteKey(15);
+    search(15);
+
+    return 0;
+}
