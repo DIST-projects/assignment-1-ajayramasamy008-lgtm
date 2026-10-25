@@ -1,0 +1,20 @@
+#include<stdio.h>
+
+int main(){
+    int q[100],n,i,max=-99999,sec=-99999;
+
+    scanf("%d",&n);
+
+    for(i=0;i<n;i++)
+        scanf("%d",&q[i]);
+
+    for(i=0;i<n;i++){
+        if(q[i]>max){
+            sec=max;
+            max=q[i];
+        }else if(q[i]>sec&&q[i]!=max)
+            sec=q[i];
+    }
+
+    printf("%d",sec);
+}
