@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+struct Node* merge(struct Node *a,struct Node *b){
+    struct Node d,*p=&d;
+    d.next=NULL;
+
+    while(a&&b){
+        if(a->data<b->data){
+            p->next=a;
+            a=a->next;
+        }else{
+            p->next=b;
+            b=b->next;
+        }
+        p=p->next;
+    }
+
+    p->next=a?a:b;
+    return d.next;
+}
+
+struct Node* mergeK(struct Node *a[],int k){
+    struct Node *r=a[0];
+    int i;
+
+    for(i=1;i<k;i++)
+        r=merge(r,a[i]);
+
+    return r;
+}
+
+int main(){
+    return 0;
+}
