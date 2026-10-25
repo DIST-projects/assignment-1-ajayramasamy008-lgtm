@@ -1,0 +1,31 @@
+
+#include <stdio.h>
+
+int main() {
+    int a[10] = {10, 20, 30, 40, 50};
+    int n = 5, key, i, j;
+
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+
+    for (i = 0; i < n; i++) {
+        if (a[i] == key)
+            break;
+    }
+
+    if (i == n) {
+        printf("Not found");
+        return 0;
+    }
+
+    for (j = i; j > 0; j--)
+        a[j] = a[j - 1];
+
+    a[0] = key;
+
+    printf("Updated list: ");
+    for (i = 0; i < n; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
