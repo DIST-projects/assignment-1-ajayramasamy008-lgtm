@@ -1,0 +1,39 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+struct Node *create(int x) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = x;
+    n->left = n->right = NULL;
+    return n;
+}
+
+int search(struct Node *root, int key) {
+    if (root == NULL)
+        return 0;
+
+    if (root->data == key)
+        return 1;
+
+    return search(root->left, key) ||
+           search(root->right, key);
+}
+
+int main() {
+    struct Node *root = create(10);
+    root->left = create(20);
+    root->right = create(30);
+
+    if (search(root, 20))
+        printf("Element found");
+    else
+        printf("Element not found");
+
+    return 0;
+}
