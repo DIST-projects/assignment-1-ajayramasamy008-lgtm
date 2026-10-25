@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    char data;
+    struct Node *left, *right;
+};
+
+struct Node* create(char ch) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = ch;
+    n->left = n->right = NULL;
+    return n;
+}
+
+int main() {
+    char exp[] = "ab-cd*+";
+    struct Node *stack[100], *n;
+    int top = -1;
+
+    for (int i = 0; exp[i] != '\0'; i++) {
+        n = create(exp[i]);
+
+        if (exp[i] == '+' || exp[i] == '-' ||
+            exp[i] == '*' || exp[i] == '/') {
+            n->right = stack[top--];
+            n->left = stack[top--];
+        }
+
+        stack[++top] = n;
+    }
+
+    printf("Expression tree constructed successfully");
+    return 0;
+}
