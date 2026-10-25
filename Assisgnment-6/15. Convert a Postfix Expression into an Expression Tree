@@ -1,0 +1,45 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+struct Node {
+    char data;
+    struct Node *left, *right;
+};
+
+struct Node *stack[100];
+int top = -1;
+
+struct Node *create(char c) {
+    struct Node *n = malloc(sizeof(struct Node));
+    n->data = c;
+    n->left = n->right = NULL;
+    return n;
+}
+
+int main() {
+    char exp[] = "ab+c*";
+    struct Node *n, *a, *b;
+
+    for (int i = 0; exp[i] != '\0'; i++) {
+        char c = exp[i];
+        n = create(c);
+
+        if (isalnum(c)) {
+            stack[++top] = n;
+        } else {
+            b = stack[top--];
+            a = stack[top--];
+
+            n->left = a;
+            n->right = b;
+            stack[++top] = n;
+        }
+    }
+
+    n = stack[top];
+
+    printf("Root operator = %c", n->data);
+    return 0;
+}
