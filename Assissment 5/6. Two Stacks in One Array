@@ -1,0 +1,35 @@
+#include<stdio.h>
+
+#define N 10
+
+int a[N],t1=-1,t2=N;
+
+void push1(int x){
+    if(t1+1==t2)printf("Overflow");
+    else a[++t1]=x;
+}
+
+void push2(int x){
+    if(t1+1==t2)printf("Overflow");
+    else a[--t2]=x;
+}
+
+void display(){
+    int i;
+
+    printf("Stack1: ");
+    for(i=0;i<=t1;i++)
+        printf("%d ",a[i]);
+
+    printf("\nStack2: ");
+    for(i=N-1;i>=t2;i--)
+        printf("%d ",a[i]);
+}
+
+int main(){
+    push1(10);
+    push1(20);
+    push2(50);
+    push2(40);
+    display();
+}
