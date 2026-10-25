@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+int main(){
+    struct Node *h=NULL,*t=NULL,*x;
+    int i;
+
+    for(i=0;i<3;i++){
+        x=malloc(sizeof(*x));
+        scanf("%d",&x->data);
+        x->next=NULL;
+        if(!h)h=t=x;
+        else t=t->next=x;
+    }
+
+    if(h->data==h->next->next->data)
+        printf("Same");
+    else
+        printf("Not Same");
+}
